@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="FileMapper">
+  
+	<insert id="fileWrite" parameterType="java.util.Map" >
+		<selectKey keyProperty="id" resultType="java.lang.Integer" order="BEFORE">
+        select qna_seq.nextval as id from dual
+   		</selectKey>
+		Insert All  
+		<foreach collection="list" item="item" separator=" " index="i">
+		into files values(qna_seq.nextval+#{i}, #{item.num}, #{item.fname}, #{item.oname})
+		</foreach>
+		select * from dual
+	</insert>
+	
+ 	<delete id="fileDelete" parameterType="Integer">
+ 		delete files where fnum=#{fnum}
+ 	</delete>
+ 	
+ 	 <delete id="fileDeleteAll" parameterType="Integer">
+ 		delete files where num=#{num}
+ 	</delete>
+ 	
+ 	<update id="fileUpdate" parameterType="java.util.List">
+ 		update files set fname=#{fname}, oname=#{oname} where fnum=#{fnum}
+ 	</update>
+ 	<select id="fileSelect" parameterType="java.lang.Integer" resultType="com.iu.file.FileDTO">
+ 		select * from files where fnum=#{fnum}
+ 	</select>
+ 	
+ 	<select id="fileList" resultType="com.iu.file.FileDTO" parameterType="java.lang.Integer">
+ 		select * from files where num=#{num}
+ 	</select>
+ 	
+ </mapper>
+  
