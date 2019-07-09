@@ -9,11 +9,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.view.AbstractView;
 
 import com.iu.file.FileDTO;
 
+@Component
 public class FileDown extends AbstractView{
 	
 	//파일 다운로드 코드

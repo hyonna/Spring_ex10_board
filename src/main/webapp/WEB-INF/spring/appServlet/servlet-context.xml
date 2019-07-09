@@ -14,8 +14,6 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-
-	<beans:bean class="com.iu.util.FileDown" id="fileDown"></beans:bean>
 	
 		<!-- 숫자가 작을수록 먼저 봄 -->
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
@@ -29,6 +27,21 @@
 		<beans:property name="order" value="0" />
 	</beans:bean>
 	
+	<beans:bean class="com.iu.interceptor.QnaInterceptor" id="qnaInterceptor"></beans:bean>
+	<beans:bean class="com.iu.interceptor.QnaUpdateInterceptor" id="qnaUpdateInterceptor"></beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path="/qna/*"/>
+			<beans:ref bean="qnaInterceptor"/>
+		</interceptor>
+	</interceptors>
+	<interceptors>
+		<interceptor>
+			<mapping path="/qna/qnaUpdate"/>
+			<beans:ref bean="qnaUpdateInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 	<context:component-scan base-package="com.iu.s10" />
 	<context:component-scan base-package="com.iu.board" />
 	<context:component-scan base-package="com.iu.board.qna" />
@@ -36,6 +49,7 @@
 	<context:component-scan base-package="com.iu.file" />
 	<context:component-scan base-package="com.iu.util" />
 	<context:component-scan base-package="com.iu.member" />
+	<context:component-scan base-package="com.iu.interceptor" />
 	
 	
 	

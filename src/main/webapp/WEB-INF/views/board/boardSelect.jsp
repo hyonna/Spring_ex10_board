@@ -60,10 +60,12 @@
 		<a href="./${board}Reply?num=${dto.num}"><button class="btn btn-primary">답글달기</button></a>
 	</div>
 	</c:if>
+	<c:if test="${member.id eq dto.writer}">
 	<div style="float: right;">
 		<a href="./${board}Update?num=${dto.num}"><button class="btn btn-primary">Update</button></a>
 		<a href="./${board}Delete?num=${dto.num}"><button class="btn btn-danger">Delete</button></a>
 	</div>
+	</c:if>
 	<div style="float: left;">
 		<a href="./${board}List"><button class="btn btn-default">List</button></a>
 	</div>
