@@ -8,6 +8,13 @@
  		id, pw, name, email, grade
  	</sql>
  	
+ 	<delete id="setDelete" parameterType="java.util.List">
+ 		delete member where id in 
+ 		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item} 		
+ 		</foreach>
+ 	</delete>
+ 	
  	<insert id="setWrite" parameterType="com.iu.member.MemberDTO">
  		insert into member (<include refid="colums" />) values(#{id}, #{pw}, #{name}, #{email}, 3)
  	</insert>
@@ -41,9 +48,50 @@
  	<select id="getSelect" resultMap="member" parameterType="com.iu.member.MemberDTO" resultType="com.iu.member.MemberDTO">
  		select * 
  		from member M 
- 		join memberFile F 
+ 		full join memberFile F 
  		using(id)
  		where id=#{id} and pw=#{pw}
+ 	</select>
+ 	
+ 	<select id="getList" resultMap="member" parameterType="PageMaker">
+ 		select * from
+ 		(select rownum R, M.* from
+ 		(select * from member M full join memberFile F using(id) where grade != 0 and
+ 		<choose>
+			<when test="kind == 1">
+				id
+			</when>
+			<when test="kind == 2">
+				name
+			</when>
+			<when test="kind == 3">
+				email
+			</when>
+			<otherwise>
+				grade
+			</otherwise>
+		</choose>
+			like '%'||#{search}||'%' ORDER BY REGEXP_REPLACE(id, '[0-9]'), to_number(REGEXP_REPLACE(id, '[^0-9]'))) M)
+ 			where R between #{startRow} and #{lastRow}
+ 	</select>
+ 	
+ 	<select id="totalCount" parameterType="com.iu.util.PageMaker" resultType="java.lang.Integer">
+		select count(id) from member where grade != 0 and
+		<choose>
+			<when test="kind == 1">
+				id
+			</when>
+			<when test="kind == 2">
+				name
+			</when>
+			<when test="kind == 3">
+				email
+			</when>
+			<otherwise>
+				grade
+			</otherwise>
+		</choose>
+			like '%'||#{search}||'%'
  	</select>
  
  </mapper>

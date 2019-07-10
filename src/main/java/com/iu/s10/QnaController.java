@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +25,14 @@ public class QnaController {
 	
 	@Inject
 	private QnaService qnaService;
+	
+	@ModelAttribute("board")
+	public String board() {
+		//모든 메소드에 공통적으로 들어감
+		//mv.addObject("board", "qna") 와 같음
+		
+		return "qna";
+	}
 	
 	
 	//삭제
@@ -43,7 +52,7 @@ public class QnaController {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("num", num);
-		mv.addObject("board", "qna");
+//		mv.addObject("board", "qna");
 		mv.setViewName("board/boardReply");
 		
 		return mv;
@@ -80,7 +89,7 @@ public class QnaController {
 		
 		BoardDTO boardDTO = qnaService.getSelect(num);
 		mv.addObject("dto", boardDTO);
-		mv.addObject("board", "qna");
+//		mv.addObject("board", "qna");
 		mv.setViewName("board/boardUpdate");
 		
 		return mv;
@@ -102,7 +111,7 @@ public class QnaController {
 	@RequestMapping(value = "qnaWrite", method = RequestMethod.GET)
 	public String setWrite(Model model) throws Exception {
 		
-		model.addAttribute("board", "qna");
+//		model.addAttribute("board", "qna");
 		
 		return "board/boardWrite";
 	}
@@ -137,7 +146,7 @@ public class QnaController {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("dto", boardDTO);
-		mv.addObject("board", "qna");
+//		mv.addObject("board", "qna");
 		mv.setViewName("board/boardSelect");
 		
 		return mv;
@@ -151,7 +160,7 @@ public class QnaController {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("list", lists);
-		mv.addObject("board", "qna");
+//		mv.addObject("board", "qna");
 		mv.addObject("pager", pageMaker);
 		mv.setViewName("board/boardList");
 		

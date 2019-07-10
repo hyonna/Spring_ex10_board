@@ -47,7 +47,7 @@ height: 300px;
 		</div>
 		<div class="form-group">
 		  <label for="writer">Writer:</label>
- 		 <input class="form-control" type="text" id="writer" name="writer">
+ 		 <input class="form-control" type="text" id="writer" name="writer" value="${member.id}" readonly>
 		</div>
 		<div class="form-group">
 		  <label for="contents">Contents:</label>

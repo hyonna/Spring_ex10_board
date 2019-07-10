@@ -1,11 +1,14 @@
 package com.iu.s10;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.iu.file.MemberFileDTO;
 import com.iu.member.MemberDTO;
 import com.iu.member.MemberService;
+import com.iu.util.PageMaker;
 
 @Controller
 @RequestMapping("/member/")
@@ -21,6 +25,30 @@ public class MemberController {
 	
 	@Inject
 	private MemberService memberService;
+	
+	
+	//adminPage
+	@RequestMapping(value = "memberAdmin", method = RequestMethod.GET)
+	public void adminPage(Model model, PageMaker pageMaker) throws Exception {
+		
+		List<MemberDTO> ar = memberService.getList(pageMaker);
+		int totalCount = memberService.getTotalCount(pageMaker);
+		
+		model.addAttribute("list", ar);
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("pager", pageMaker);
+	}
+	
+	
+	@RequestMapping(value = "memberAdmin", method = RequestMethod.POST)
+	public String memberDeleteAdmin(String[] id) throws Exception {
+		
+		memberService.setDelete(id);
+		
+		return "redirect:./memberAdmin";
+	}
+	
+	
 	
 	@RequestMapping(value = "memberPage", method = RequestMethod.GET)
 	public ModelAndView myPage(ModelAndView mv, HttpSession session) throws Exception {
@@ -33,6 +61,7 @@ public class MemberController {
 		return mv;
 		
 	}
+	
 	
 	@RequestMapping(value = "memberLogout", method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception {

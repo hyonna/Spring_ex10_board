@@ -34,8 +34,6 @@
 			<mapping path="/qna/*"/>
 			<beans:ref bean="qnaInterceptor"/>
 		</interceptor>
-	</interceptors>
-	<interceptors>
 		<interceptor>
 			<mapping path="/qna/qnaUpdate"/>
 			<beans:ref bean="qnaUpdateInterceptor"/>

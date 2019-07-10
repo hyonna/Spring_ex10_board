@@ -1,5 +1,6 @@
 package com.iu.interceptor;
 
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -21,26 +22,32 @@ public class QnaUpdateInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 		
-		HttpSession session = request.getSession();
 		String method = request.getMethod();
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		
 		if(method.equals("GET")) {
 			
+			HttpSession session = request.getSession();
+			MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+			
 			Map<String, Object> map = modelAndView.getModel();
-			if(memberDTO.getId().equals(map.get(0))) {
-				
-				
-			} else {
+			BoardDTO boardDTO  = (BoardDTO)map.get("dto");
+			
+			if(!memberDTO.getId().equals(boardDTO.getWriter())) {
 				
 				modelAndView.addObject("message", "Fail");
-				modelAndView.addObject("path", "../member/memberLogin");
+				modelAndView.addObject("path", "./"+(String)map.get("board")+"List");
+				map.remove("dto");
 				modelAndView.setViewName("common/messageMove");
 				
-			}
+			} 
 			
 		}
 		
+		// 키를 모를때 꺼내는 방법
+//		Iterator<String> it = map.keySet().iterator();
+//		while(it.hasNext()) {
+//			System.out.println(it.next());
+//		}
 		
 		super.postHandle(request, response, handler, modelAndView);
 	}
