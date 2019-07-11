@@ -18,6 +18,7 @@ import com.iu.file.FileDTO;
 import com.iu.util.FileSaver;
 import com.iu.util.PageMaker;
 
+@EnableAspectJAutoProxy(proxyTargetClass=true)
 public class QnaService implements BoardService{
 	
 	@Inject
@@ -90,6 +91,12 @@ public class QnaService implements BoardService{
 		
 		//qna table insert
 		int result = qnaDAO.setWrite(boardDTO);
+		
+		if(result > 0) {
+			
+			throw new Exception();
+		}
+		
 		String realPath = session.getServletContext().getRealPath("/resources/qna");
 		System.out.println(realPath);
 		File file2 = new File(realPath);
