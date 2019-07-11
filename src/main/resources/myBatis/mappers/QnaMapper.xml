@@ -91,6 +91,10 @@
   		select * from qna Q full join files F using(num) where num=#{num}
   	</select>
   	
+  	<update id="setHit" parameterType="Integer">
+  		update qna set hit=hit+1 where num=#{num}
+  	</update>
+  	
   	<select id="getList" resultType="QnaDTO" parameterType="PageMaker">
   		select * from
   		(select rownum R, Q.* from

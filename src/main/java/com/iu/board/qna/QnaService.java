@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +17,6 @@ import com.iu.file.FileDAO;
 import com.iu.file.FileDTO;
 import com.iu.util.FileSaver;
 import com.iu.util.PageMaker;
-
 
 public class QnaService implements BoardService{
 	
@@ -106,6 +106,7 @@ public class QnaService implements BoardService{
 		
 		ArrayList<FileDTO> files = new ArrayList<FileDTO>();
 		
+		
 		for (MultipartFile file : multipartFiles) { //for문 돌린만큼 파일 갯수 받기
 			
 			if(file.getOriginalFilename().length()>0) {
@@ -149,6 +150,7 @@ public class QnaService implements BoardService{
 	public BoardDTO getSelect(int num) throws Exception {
 		
 		BoardDTO boardDTO = qnaDAO.getSelect(num);
+		int result = qnaDAO.setHit(num);
 		QnaDTO qnaDTO = (QnaDTO)boardDTO;
 		
 		if(qnaDTO.getFiles().size()==1) {
@@ -158,8 +160,12 @@ public class QnaService implements BoardService{
 				qnaDTO.setFiles(new ArrayList<FileDTO>());
 			}
 		}
-		
 		return boardDTO;
+	}
+	
+	public int setHit(int num) throws Exception {
+		
+		return qnaDAO.setHit(num);
 	}
 	
 	

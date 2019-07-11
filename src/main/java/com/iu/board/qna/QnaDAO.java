@@ -5,18 +5,24 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.iu.board.BoardDAO;
 import com.iu.board.BoardDTO;
 import com.iu.util.PageMaker;
 
-
 public class QnaDAO implements BoardDAO{
 	
 	@Inject
 	private SqlSession sqlSession;
 	private static final String NAMESPACE="QnaMapper.";
+	
+	//조회수 증가
+	public int setHit(int num) throws Exception {
+		
+		return sqlSession.update(NAMESPACE+"setHit", num);
+	}
 	
 	//답글 insert
 	public int setReply(BoardDTO qnaDTO) throws Exception {
