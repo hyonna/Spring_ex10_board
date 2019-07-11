@@ -4,47 +4,5 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-
-	<!-- properties 파일을 읽어주는 코드 -->
-		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyPlaceholderConfigurer">
-			<property name="locations" value="classpath:properties/*.properties"></property>
-		</bean>
-		
-		<!-- 커넥션 맺어주는 코드 -->
-		<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
-			<!-- setter 메소드 호출 -->
-			<property name="username" value="${oracle.user}" />
-			<property name="password" value="${oracle.password}" />
-			<property name="url" value="${oracle.url}" />
-			<property name="driverClassName" value="${oracle.driver}" />
-		</bean>	
-		
-		
-		<!-- 마이바티스 대신 해주는 애 / 마이 바티스는 연결해야 되니까 연결 정보를 알아야함 / 연결 정보는 위에 있는 코드를 알아야함 -->
-		<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
-			<property name="dataSource" ref="dataSource" />
-			<!-- 아래 코드는 sql문이 어디에 있는지 알려줌 -->
-			<property name="mapperLocations" value="classpath:/myBatis/mappers/**/*Mapper.xml" />
-			<property name="configLocation" value="classpath:/myBatis/config/myBatisConfig.xml" />
-		</bean>
-		
-		
-		<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
-			<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
-		</bean>
-		
-		
-		<!-- request를 합치는 객체 -->
-		<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
-			<property name="defaultEncoding" value="UTF-8" />
-			<!-- 파일 하나당 사이즈 -->
-			<property name="maxUploadSizePerFile" value="10485760" />
-			<!-- 전체 파일 총 사이즈 -->
-			<property name="maxUploadSize" value="104857600" />
-		</bean>
-		
-		
-		<!-- 파일 저장 -->
-		<bean class="com.iu.util.FileSaver" />
 		
 </beans>
