@@ -19,6 +19,7 @@ import com.iu.util.FileSaver;
 import com.iu.util.PageMaker;
 
 @Service
+@Transactional
 public class QnaService implements BoardService{
 	
 	@Inject
@@ -93,9 +94,6 @@ public class QnaService implements BoardService{
 		//qna table insert
 		int result = qnaDAO.setWrite(boardDTO);
 		
-		if(result > 0) {
-			throw new Exception();
-		}
 		
 		String realPath = session.getServletContext().getRealPath("/resources/qna");
 		System.out.println(realPath);
@@ -132,6 +130,9 @@ public class QnaService implements BoardService{
 		if(files.size() > 0) {
 			
 			result = fileDAO.setWrite(files);
+			if(result > 0) {
+				throw new Exception();
+			}
 		}
 		
 		
