@@ -33,6 +33,9 @@ insert into options values(product_seq.nextval, 'B1562917517557', 'red');
 insert into options values(product_seq.nextval, 'T1562917629039', 'blue');
 insert into options values(product_seq.nextval, 'T1562917629039', 'green');
 
+select count(pid) from product where title like '%%';
+
+
 commit
 
 ------------------------------------- 옵션

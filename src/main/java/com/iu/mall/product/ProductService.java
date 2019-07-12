@@ -34,11 +34,15 @@ public class ProductService{
 		pageMaker.setPerPage(9);
 		
 		//startRow
-		
+		pageMaker.makeRow();
+		List<ProductVO> lists = productDAO.getList(pageMaker);
 		
 		//lastRow
+		int totalCount = productDAO.getTotalCount(pageMaker);
+		pageMaker.makePage(totalCount);
 		
-		return null;
+		
+		return lists;
 		
 	}
 	

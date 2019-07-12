@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.iu.mall.product.OptionsVO;
 import com.iu.mall.product.ProductService;
 import com.iu.mall.product.ProductVO;
+import com.iu.util.PageMaker;
 
 @Controller
 @RequestMapping("/mall/")
@@ -54,6 +55,19 @@ public class ProductController {
 		
 	}
 	
+	@RequestMapping(value = "productList", method = RequestMethod.GET)
+	public ModelAndView getList(PageMaker pageMaker) throws Exception {
+		
+		List<ProductVO> lists = productService.getList(pageMaker);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("list", lists);
+		mv.addObject("pager", pageMaker);
+		mv.setViewName("mall/productList");
+		
+		return mv;
+	}
+	
 	
 	//매개변수에 ProductVO productVO 라고 그냥 써도 앞에  @ModelAttribute가 암묵적으로 생성
 	@RequestMapping(value = "productWrite", method = RequestMethod.GET)
@@ -76,7 +90,7 @@ public class ProductController {
 		} 
 			
 		mv.addObject("message", message);
-		mv.addObject("path", "../");
+		mv.addObject("path", "./productList");
 		mv.setViewName("common/messageMove");
 		
 		

@@ -12,7 +12,7 @@
 		<result property="title" column="title"/>
 		<result property="price" column="price"/>
 		<result property="subcontents" column="subcontents"/>
-		<result property="mainCountents" column="mainCountents"/>
+		<result property="maincontents" column="maincontents"/>
 		<result property="amount" column="amount"/>
 		<result property="reg_date" column="reg_date"/>
 		<collection property="nailVOs" resultMap="thumbResult" ofType="ThumbnailVO" javaType="java.util.List">
@@ -37,10 +37,10 @@
   				P.title like '%'||#{search}||'%'
   			</when>
   			<when test="kind == 2">
-  				P.mainCountents like '%'||#{search}||'%'
+  				P.maincontents like '%'||#{search}||'%'
   			</when>
   			<otherwise>
-  				P.title like '%'||#{search}||'%' or P.mainCountents like '%'||#{search}||'%'
+  				P.title like '%'||#{search}||'%' or P.maincontents like '%'||#{search}||'%'
   			</otherwise>
   		</choose>
   order by reg_date desc) Products)
@@ -72,19 +72,15 @@
   </delete>
   
   <select id="totalCount" parameterType="PageMaker" resultType="Integer">
-  	select count(pid) from product where
+  	select count(pid) from product
   	<choose>
   			<when test="kind == 1">
-  				title
-  			</when>
-  			<when test="kind == 2">
-  				maincontents
+  			 where title like '%'||#{search}||'%'
   			</when>
   			<otherwise>
-  				title or maincontents
+  				where maincontents like '%'||#{search}||'%'
   			</otherwise>
   		</choose>
-  			like '%'||#{search}||'%'
   </select>
   
   

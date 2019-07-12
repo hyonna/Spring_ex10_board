@@ -28,5 +28,10 @@ public class ProductDAO{
 		return sqlSession.selectList(NAMESPACE+"getList", pageMaker);
 	}
 	
+	public int getTotalCount(PageMaker pageMaker) throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE+"totalCount", pageMaker);
+	}
+	
 
 }
