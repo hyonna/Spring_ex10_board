@@ -7,8 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.iu.board.BoardDTO;
@@ -18,7 +17,7 @@ import com.iu.file.FileDTO;
 import com.iu.util.FileSaver;
 import com.iu.util.PageMaker;
 
-@EnableAspectJAutoProxy(proxyTargetClass=true)
+@Transactional
 public class QnaService implements BoardService{
 	
 	@Inject
@@ -91,12 +90,6 @@ public class QnaService implements BoardService{
 		
 		//qna table insert
 		int result = qnaDAO.setWrite(boardDTO);
-		
-		if(result > 0) {
-			
-			throw new Exception();
-		}
-		
 		String realPath = session.getServletContext().getRealPath("/resources/qna");
 		System.out.println(realPath);
 		File file2 = new File(realPath);
