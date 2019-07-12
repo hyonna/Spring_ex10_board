@@ -21,7 +21,7 @@ NOCYCLE
 NOCACHE
 
 delete Product
-drop table Product
+delete Product where category='T';
 select * from Product
 
 select * from Thumbnail;
