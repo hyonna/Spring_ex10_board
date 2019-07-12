@@ -23,6 +23,9 @@ public class PageMaker {
 	
 	
 	
+	public void setPerPage(int perPage) {
+		this.perPage = perPage;
+	}
 	public int getTotalBlock() {
 		return totalBlock;
 	}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="ProductMapper">
+  
+  
+  <resultMap type="ProductVO" id="ListResult">
+  		<!-- primary key --> <!-- property : DTO의 멤버변수명, column : DB의 컬럼명 -->
+		<id property="pid" column="pid"/>
+		<result property="category" column="category"/>
+		<result property="title" column="title"/>
+		<result property="price" column="price"/>
+		<result property="subcontents" column="subcontents"/>
+		<result property="mainCountents" column="mainCountents"/>
+		<result property="amount" column="amount"/>
+		<result property="reg_date" column="reg_date"/>
+		<collection property="nailVOs" resultMap="thumbResult" ofType="ThumbnailVO" javaType="java.util.List">
+		</collection>
+ 	</resultMap>
+ 	
+ 	<resultMap type="ThumbnailVO" id="thumbResult">
+ 			<id property="num" column="num"/>
+ 			<result property="pid" column="pid"/>
+			<result property="fname" column="fname"/>
+			<result property="oname" column="oname"/>
+ 	</resultMap>
+  
+  
+  <select id="getList" parameterType="PageMaker" resultMap="ListResult">
+  select * from
+  (select rownum R, Products.* from
+  (select P.*, T.num, T.oname, T.fname from product P
+  full join Thumbnail T on(P.pid=T.pid) where
+  		<choose>
+  			<when test="kind == 1">
+  				P.title like '%'||#{search}||'%'
+  			</when>
+  			<when test="kind == 2">
+  				P.mainCountents like '%'||#{search}||'%'
+  			</when>
+  			<otherwise>
+  				P.title like '%'||#{search}||'%' or P.mainCountents like '%'||#{search}||'%'
+  			</otherwise>
+  		</choose>
+  order by reg_date desc) Products)
+  where R between #{startRow} and #{lastRow}
+  </select>
+  
+    
+  <select id="getSelect">
+  
+  </select>
+  
+  
+  
+  
+  <insert id="setWrite" parameterType="ProductVO">
+	  insert into product values
+	  (#{pid}, #{category}, #{title}, #{price}, #{subcontents}, #{maincontents}, #{amount}, sysdate)  
+  </insert>
+  
+  <update id="setUpdate">
+  
+  </update>
+  
+  
+  <delete id="setDelete" parameterType="java.lang.String">
+  
+   delete product where pid=#{pid}
+  
+  </delete>
+  
+  <select id="totalCount" parameterType="PageMaker" resultType="Integer">
+  	select count(pid) from product where
+  	<choose>
+  			<when test="kind == 1">
+  				title
+  			</when>
+  			<when test="kind == 2">
+  				maincontents
+  			</when>
+  			<otherwise>
+  				title or maincontents
+  			</otherwise>
+  		</choose>
+  			like '%'||#{search}||'%'
+  </select>
+  
+  
+  </mapper>

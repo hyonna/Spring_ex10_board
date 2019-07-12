@@ -14,6 +14,8 @@
 
 <a href="./notice/noticeList">Go Notice</a>
 <a href="./qna/qnaList">Go QnA</a>
+<a href="./mall/productWrite">Add Product</a>
+<a href="./mall/productList">Go Product</a>
 
 <c:choose>
 	<c:when test="${not empty member}">

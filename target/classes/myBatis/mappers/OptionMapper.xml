@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="OptionsMapper">
+   
+   
+   
+  <insert id="setWrite">
+	insert into options values (product_seq.nextval, #{pid}, #{contents})  
+  </insert>
+  
+  <update id="setUpdate">
+  
+  </update>
+  
+  
+  <delete id="setDelete" parameterType="java.lang.String">
+  
+   delete option where pid=#{pid}
+  
+  </delete>
+  
+  <select id="getSelect">
+  
+  </select>
+  
+  
+  <select id="getList">
+  
+  
+  </select>
+  
+   
+  </mapper>
