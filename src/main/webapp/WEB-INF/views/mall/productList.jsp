@@ -74,7 +74,7 @@
 			<div class="p_list_box">
 				<ul>
 				<c:forEach items="${dto.nailVOs}" var="tdto">
-					<li><img alt="" src="../resources/product/${tdto.oname}"></li>
+					<li class="list_img"><img alt="" src="../resources/product/${tdto.fname}"></li>
 				</c:forEach>
 					<li class="title">${dto.title}</li>
 					<li class="subtitle">${dto.subcontents}</li>

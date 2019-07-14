@@ -66,6 +66,13 @@ nomaxvalue
 nocache
 nocycle;
 
+create sequence qna_seq
+start with 1
+increment by 1
+nomaxvalue
+nocache
+nocycle;
+
 
 create sequence memberfile_seq
 start with 1
@@ -87,18 +94,19 @@ create table member(
 
 );
 
+select * from member
+
 drop table member;
 
 delete member where id='id';
 
-create table memberFile(
+create table files(
 
+	fnum number(8),
 	num number(8),
-	id varchar2(400),
 	fname varchar2(2000),
 	oname varchar2(2000),
-	constraint memberFile_num_pk primary key(num),
-	constraint memberFile_id_fk foreign key(id) references member(id) on delete cascade
+	constraint files_fnum_pk primary key(fnum)
 );
 
 select * from notice
@@ -149,7 +157,9 @@ nomaxvalue
 nocache
 nocycle;
 
-insert into notice values (notice_seq.nextval, 'happy', 'admin', null, sysdate, 0)
+
+
+insert into notice values (notice_seq.nextval, 'happy', 'admin', 'contents', sysdate, 0)
 select count(num) from notice;
 select * from notice;
 
