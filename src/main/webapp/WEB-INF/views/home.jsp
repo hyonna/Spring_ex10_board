@@ -26,6 +26,7 @@
 		<c:if test="${member.grade != '0'}">
 		<a href="./member/memberPage">My Page</a>
 		<a href="./member/memberLogout">Member Logout</a>
+		<a href="./cart/cartList">My Cart</a>
 		</c:if>
 	</c:when>
 	<c:otherwise>

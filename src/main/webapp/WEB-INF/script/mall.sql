@@ -28,10 +28,10 @@ select * from Thumbnail;
 select * from product P full join Options O using(pid);
 select P.*, T.num, T.oname, T.fname from product P full join Thumbnail T on(P.pid=T.pid) order by reg_date desc;
 
-insert into options values(product_seq.nextval, 'B1562917517557', 'white');
-insert into options values(product_seq.nextval, 'B1562917517557', 'red');
-insert into options values(product_seq.nextval, 'T1562917629039', 'blue');
-insert into options values(product_seq.nextval, 'T1562917629039', 'green');
+insert into options values(product_seq.nextval, 'T1562925026034', 'white');
+insert into options values(product_seq.nextval, 'T1562925026034', 'red');
+insert into options values(product_seq.nextval, 'T1562925026034', 'blue');
+insert into options values(product_seq.nextval, 'T1562925026034', 'green');
 
 select count(pid) from product where title like '%%';
 
@@ -87,3 +87,35 @@ NOCACHE
 commit
 
 select * from OPTIONS
+
+
+		select C.num, P.title, O.contents, C.amount, P.price 
+		from cart C inner join product P
+		on (C.pid=P.pid)
+		inner Join options O
+		on (C.options=O.num)
+		where C.id = 'iu'
+
+
+-------------------------------------- 장바구니
+
+CREATE TABLE cart
+(
+	num    NUMBER(8), 
+    id      VARCHAR2(400), 
+    Pid      VARCHAR2(400), 
+    options	 NUMBER(8),
+    amount    NUMBER(8), 
+    CONSTRAINT cart_num_PK PRIMARY KEY (num),
+    CONSTRAINT cart_PID_FK FOREIGN KEY (Pid) REFERENCES Product (Pid) ON DELETE CASCADE,
+    CONSTRAINT cart_ID_FK FOREIGN KEY (id) REFERENCES member (id) ON DELETE CASCADE
+    
+)
+
+select * from cart
+drop table cart
+commit
+
+delete cart where id='iu';
+
+update cart set amount=2 where num=34 and id='iu'

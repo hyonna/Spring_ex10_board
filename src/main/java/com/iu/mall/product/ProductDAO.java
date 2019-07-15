@@ -33,5 +33,11 @@ public class ProductDAO{
 		return sqlSession.selectOne(NAMESPACE+"totalCount", pageMaker);
 	}
 	
+	public ProductVO getSelect(ProductVO productVO) throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE+"getSelect", productVO);
+	}
+	
+	
 
 }

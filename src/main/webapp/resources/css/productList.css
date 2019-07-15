@@ -40,11 +40,29 @@ a:hover {
 
 .p_list_box {
 	
+	overflow: hidden;
+	letter-spacing: -1px;
+	font-weight: 700;
+	border: 1px solid #ddd;
+}
+
+
+.p_list a {
+	
+	display: block;
+	overflow: hidden;
+	box-sizing: border-box;
 	float: left;
 	width: 32%;
-	overflow: hidden;
-	margin-right: 20px;
+	margin-right: 22px;
 	margin-bottom: 30px;
+	color: #383838;
+}
+
+
+.p_list a:hover {
+	
+	color: #383838;
 }
 
 
@@ -53,11 +71,11 @@ a:hover {
 	
 	width: 100%;
 	box-sizing: border-box;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 }
 
 
-.p_list_box:nth-child(3n) {
+.p_list a:nth-child(3n) {
 	
 	float: right;
 	margin: 0;
@@ -66,10 +84,18 @@ a:hover {
 }
 
 
-
-.p_list_box {
+.title, .price {
 	
-	font-size: 1.3em;
-	letter-spacing: -1px;
-	font-weight: 700;
+	padding-left: 10px;
+}
+
+.title {
+	font-size: 1.2em;
+}
+
+
+.price {
+	
+	font-size: 1em;
+	letter-spacing: 0;
 }

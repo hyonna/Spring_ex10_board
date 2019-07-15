@@ -27,6 +27,12 @@ public class ProductService{
 	private FileSaver fileSaver;
 	
 	
+	////////////////select
+	public ProductVO getSelect(ProductVO productVO) throws Exception {
+
+		return productDAO.getSelect(productVO);
+		
+	}
 	
 	//////////////// list
 	public List<ProductVO> getList(PageMaker pageMaker) throws Exception {

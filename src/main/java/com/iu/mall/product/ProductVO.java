@@ -14,8 +14,17 @@ public class ProductVO {
 	private int amount;
 	private Date reg_date;
 	private List<ThumbnailVO> nailVOs;
+	private List<OptionsVO> optionsVOs;
 	
 	
+	
+	
+	public List<OptionsVO> getOptionsVOs() {
+		return optionsVOs;
+	}
+	public void setOptionsVOs(List<OptionsVO> optionsVOs) {
+		this.optionsVOs = optionsVOs;
+	}
 	public List<ThumbnailVO> getNailVOs() {
 		return nailVOs;
 	}

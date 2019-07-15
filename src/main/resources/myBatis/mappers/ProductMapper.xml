@@ -17,6 +17,8 @@
 		<result property="reg_date" column="reg_date"/>
 		<collection property="nailVOs" resultMap="thumbResult" ofType="ThumbnailVO" javaType="java.util.List">
 		</collection>
+		<collection property="optionsVOs" resultMap="optionResult" ofType="OptionsVO" javaType="java.util.List">
+		</collection>
  	</resultMap>
  	
  	<resultMap type="ThumbnailVO" id="thumbResult">
@@ -24,6 +26,12 @@
  			<result property="pid" column="pid"/>
 			<result property="fname" column="fname"/>
 			<result property="oname" column="oname"/>
+ 	</resultMap>
+ 	
+ 	<resultMap type="OptionsVO" id="optionResult">
+ 			<id property="num" column="onum"/>
+ 			<result property="pid" column="pid"/>
+			<result property="contents" column="contents"/>
  	</resultMap>
   
   
@@ -48,8 +56,14 @@
   </select>
   
     
-  <select id="getSelect">
-  
+  <select id="getSelect" parameterType="ProductVO" resultMap="ListResult">
+  	select P.*, T.fname, T.oname, T.num, O.num as onum, O.contents
+  	from product P 
+  	full join thumbnail T 
+  	on(P.pid=T.pid)
+  	full join options O
+  	on(P.pid=O.pid)
+  	where P.pid=#{pid}
   </select>
   
   
@@ -78,7 +92,7 @@
   			 where title like '%'||#{search}||'%'
   			</when>
   			<otherwise>
-  				where maincontents like '%'||#{search}||'%'
+  			where maincontents like '%'||#{search}||'%'
   			</otherwise>
   		</choose>
   </select>

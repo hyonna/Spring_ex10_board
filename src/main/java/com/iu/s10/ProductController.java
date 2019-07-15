@@ -55,13 +55,32 @@ public class ProductController {
 		
 	}
 	
+	@RequestMapping(value = "productSelect", method = RequestMethod.GET)
+	public ModelAndView getSelect(ProductVO productVO) throws Exception {
+		
+		productVO = productService.getSelect(productVO);
+		ModelAndView mv = new ModelAndView();
+		
+		if(productVO != null) {
+			mv.addObject("product", productVO);
+			mv.setViewName("mall/productSelect");
+		} else {
+			
+			mv.addObject("message", "No Product");
+			mv.addObject("path", "./productList");
+			mv.setViewName("common/messageMove");
+		}
+		
+		return mv;
+	}
+	
 	@RequestMapping(value = "productList", method = RequestMethod.GET)
 	public ModelAndView getList(PageMaker pageMaker) throws Exception {
 		
 		List<ProductVO> lists = productService.getList(pageMaker);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("list", lists);
+		mv.addObject("productList", lists);
 		mv.addObject("pager", pageMaker);
 		mv.setViewName("mall/productList");
 		

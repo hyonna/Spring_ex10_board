@@ -6,6 +6,7 @@
   <configuration>
   	<typeAliases>
   		<typeAlias type="java.lang.Integer" alias="Integer"/>
+  		<typeAlias type="java.lang.String" alias="String"/>
   		<typeAlias type="com.iu.board.qna.QnaDTO" alias="QnaDTO"/>
   		<typeAlias type="com.iu.board.BoardDTO" alias="BoardDTO"/>
   		<typeAlias type="com.iu.util.PageMaker" alias="PageMaker"/>
@@ -15,6 +16,7 @@
   		<typeAlias type="com.iu.mall.product.ProductVO" alias="ProductVO"/>
   		<typeAlias type="com.iu.mall.product.OptionsVO" alias="OptionsVO"/>
   		<typeAlias type="com.iu.mall.product.ThumbnailVO" alias="ThumbnailVO"/>
-  		
+  		<typeAlias type="com.iu.mall.cart.CartVO" alias="CartVO"/>
+  		<typeAlias type="com.iu.mall.cart.CartListVO" alias="CartListVO"/>
   	</typeAliases>
   </configuration>

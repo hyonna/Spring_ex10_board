@@ -24,6 +24,7 @@
 		if(message != '') {
 			alert(message);
 		}		
+		
 	});
 	
 
@@ -70,17 +71,17 @@
 	
 		<div class="p_list">
 		
-		<c:forEach items="${list}" var="dto">
+		<c:forEach items="${productList}" var="dto">
+		<a href="./productSelect?pid=${dto.pid}">
 			<div class="p_list_box">
 				<ul>
-				<c:forEach items="${dto.nailVOs}" var="tdto">
-					<li><img alt="" src="../resources/product/${tdto.oname}"></li>
-				</c:forEach>
-					<li class="title">${dto.title}</li>
-					<li class="subtitle">${dto.subcontents}</li>
-					<li class="price">가격 : ${dto.price} 원</li>
+					<li><img alt="" src="../resources/product/${dto.nailVOs[0].oname}"></li>
+					<li class="title">제품명 : ${dto.title}</li>
+					<%-- <li class="subtitle">${dto.subcontents}</li> --%>
+					<li class="price">가격 : ${dto.price}원</li>
 				</ul>
 			</div>
+		</a>
 		</c:forEach>
 			
 		</div>
