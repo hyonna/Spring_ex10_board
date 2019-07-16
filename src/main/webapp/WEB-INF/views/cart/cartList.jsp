@@ -36,7 +36,7 @@ text-align: center;
 		</tr>
 		<c:forEach items="${cartList}" var="cart" varStatus="i">
 		<tr class="tr">
-			<td><input type="checkbox" title="${cart.num}" class="check"></td>
+			<td><input type="checkbox" value="${cart.num}" class="check" name="num"></td>
 			<td>${cart.title}</td>
 			<td>${cart.contents}</td>
 			<td><input id="amount${i.index}" class="amount" type="number" value="${cart.amount}">
