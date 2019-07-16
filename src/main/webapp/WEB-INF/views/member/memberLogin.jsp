@@ -19,12 +19,12 @@
 <form action="./memberLogin" method="post">
   <div class="form-group">
     <label for="id">ID : </label>
-    <input type="text" class="form-control" id="id" name="id">
+    <input type="text" class="form-control" id="id" name="id" value="iu">
   </div>
   
   <div class="form-group">
     <label for="pw">Password : </label>
-    <input type="password" class="form-control" id="pw" name="pw">
+    <input type="password" class="form-control" id="pw" name="pw" value="iu">
   </div>
   
   <button type="submit" class="btn btn-primary">Login</button>

@@ -119,3 +119,48 @@ commit
 delete cart where id='iu';
 
 update cart set amount=2 where num=34 and id='iu'
+
+delete cart where num in (34, 35);
+
+
+
+-------------------------------------- qna
+
+
+create table productqna
+(
+	pid 		varchar2(400),
+	num 		number(8),
+	title 		varchar2(400),
+	writer 		varchar2(400),
+	contents 	clob,
+	reg_date 	date,
+	hit 		number(8),
+	ref 		number(8),
+	step 		number(8),
+	depth 		number(8),
+	constraint productqna_num_pk primary key (num)
+);
+
+insert into productqna values('B1562924732078', product_seq.nextval, 'title1', 'writer1', 'contents1', sysdate, 0, product_seq.currval, 0, 0)
+
+select * from productqna where pid='T1562925026034';
+select * from seq
+
+delete productqna where num=46
+
+commit
+
+select * from
+(select rownum R, P.* from
+(select num, title, writer, reg_date, hit from productqna order by num desc) P)
+where R between 1 and 10
+
+
+select contents from productqna where num=50
+
+select * from
+	(select rownum R, P.* from
+	(select * from productqna where pid='T1562925026034'
+	order by ref desc, step asc) P)
+	where R between 1 and 10

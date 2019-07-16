@@ -7,8 +7,107 @@
 <head>
 <meta charset="UTF-8">
 <c:import url="../temp/boot.jsp" />
+<c:import url="../temp/summernote.jsp" />
+<script type="text/javascript" src="../resources/js/summernote.js"></script>
 <link href="../resources/css/productSelect.css" rel="stylesheet">
 <title>Insert title here</title>
+<script type="text/javascript">
+	$(function() {
+		
+			$.ajax({
+				
+				url:"../productQna/productQnaList",
+				type:"GET",
+				data:{
+					
+					pid:'T1562925026034'
+				},
+				success:function(data) {
+					
+					//받아온 데이터(문자열)를 json 형태로 바꿈
+					//JSON.stringify(data); -> json을 문자열로 바꿔주는 코드
+					var r = '<table class="table table-hover">'
+					$(data).each(function() {
+						
+						r=r+"<tr>";
+						r=r+"<td>내용:"+this.contents+"</td>";
+						r=r+"<td>작성자:"+this.writer+"</td>";
+						r=r+"</tr>";
+						
+					});
+					
+					r=r+"</table>";
+					$('#result').html(r);
+				}
+			});
+		
+		
+			/* $('#select').click(function() {
+				$.ajax({
+					url:"../productQna/productQnaSelect",
+					type:"GET",
+					data:{
+						
+						num:47
+					},
+					success:function(data) {
+						
+						//받아온 데이터(문자열)를 json 형태로 바꿈
+						data = JSON.parse(data);
+						//JSON.stringify(data); -> json을 문자열로 바꿔주는 코드
+						alert(data.writer);
+						alert(data.title);
+						alert(data.pid);
+						alert(data.writer);
+						
+					}
+				});
+			}); */
+		
+			$("#qnaWrite").click(function() {
+				
+				var writer = $('#writer').val();
+				var title = $('#title').val();
+				var contents = $('#contents2').summernote('code');
+				var pid = $('#pid').val();
+				
+				$.ajax({
+					
+					url: "../productQna/productQnaWrite",
+					type: "POST",
+					data: {
+						
+						pid:pid,
+						title:title,
+						writer:writer,
+						contents:contents
+						
+					},
+					success:function(data) {
+						
+						if(data=='1') {
+							
+							alert('등록성공');
+							location.reload();
+						} else {
+							alert('등록실패');
+						}
+					}
+					
+				});
+				
+			});
+			
+		});
+</script>
+<style type="text/css">
+
+.note-editable {
+
+height: 150px;
+
+}
+</style>
 </head>
 <body>
 <div class="container">
@@ -107,8 +206,36 @@
 					${product.maincontents}
 			</div>
 		</div>
+		
 	
 </div>
+
+	<div class="container" style="margin-bottom: 20px;">
+	<h3>Producct Qna Write</h3>
+	<br>
+		<div class="form-group">
+		  <label for="title">Title:</label>
+ 		 <input class="form-control" type="text" id="title" name="title">
+		</div>
+		<div class="form-group">
+		  <label for="writer">Writer:</label>
+ 		 <input class="form-control" type="text" id="writer" name="writer" value="${member.id}" readonly>
+		</div>
+		<div class="form-group">
+		  <label for="contents">Contents:</label>
+ 		 <textarea class="form-control" rows="5" cols="15" id="contents2" name="contents"></textarea>
+		</div>
+		<div>
+			<input id="qnaWrite" type="button" class="btn btn-primary" value="Write">
+		</div>
+</div>
+
+		<div class="container" style="margin-bottom: 20px;">
+			<button id="select" class="btn btn-danger">SELECT</button>
+			<div id="result">
+				
+			</div>
+		</div>
 
 	<script type="text/javascript">
 		$("#addCart").click(function() {

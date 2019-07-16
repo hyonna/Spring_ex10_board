@@ -27,7 +27,7 @@ text-align: center;
 	</div>
 	<table class="table table-hover">
 		<tr>
-			<td>전체선택<br><input type="checkbox" style="margin-top: 10px;"></td>
+			<td>전체선택<br><input type="checkbox" style="margin-top: 10px;" id="checkAll"></td>
 			<td>TITLE</td>
 			<td>OPTION</td>
 			<td>AMOUNT</td>
@@ -35,8 +35,8 @@ text-align: center;
 			<td>TOTAL PRICE</td>
 		</tr>
 		<c:forEach items="${cartList}" var="cart" varStatus="i">
-		<tr class="tr">
-			<td><input type="checkbox" value="${cart.num}" class="check" name="num"></td>
+		<tr class="tr" id="del${i}" >
+			<td><input type="checkbox" title="del${i}" value="${cart.num}" class="check" name="num"></td>
 			<td>${cart.title}</td>
 			<td>${cart.contents}</td>
 			<td><input id="amount${i.index}" class="amount" type="number" value="${cart.amount}">
@@ -54,6 +54,15 @@ text-align: center;
 <script type="text/javascript">
 
 
+	$('#checkAll').click(function() {
+		var c = $(this).prop('checked');
+		if(c==true) {
+			$('.check').prop('checked', c);
+		} else {
+			$('.check').prop('checked', false);
+		}
+	});
+
 	
 	$('.check').click(function() {
 		var c2 = true;
@@ -62,13 +71,16 @@ text-align: center;
 				c2 = false;
 			}
 		});
+		$('#checkAll').prop('checked', c2);
 	});
 	
 	$('#delete').click(function() {
-		var ids=[];
+		var ids = [];
+		var del = [];
 		$('.check').each(function() {
 			if($(this).prop('checked')) {
 				ids.push($(this).val());
+				del.push($(this).attr('title'));
 			}
 		});
 		
@@ -87,12 +99,14 @@ text-align: center;
 			success: function(data) {
 				if(data=='1') {
 					
-					console.log(data);
-					
-					/* var result = confirm('정말삭제하시겠습니까?');
+					var result = confirm('정말삭제하시겠습니까?');
 					if(result) {
 						
 						location.reload();
+					}
+					
+					/* for(var i = 0; i < del.length; i++) {
+						$("#"+del[i]).remove();
 					} */
 					
 				} else {

@@ -1,5 +1,7 @@
 package com.iu.mall.cart;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -41,7 +43,7 @@ public class CartService {
 	}
 	
 	
-	public int setDelete(int[] num) throws Exception {
+	public int setDelete(Integer[] num) throws Exception {
 		
 		return cartDAO.setDelete(num);
 	}

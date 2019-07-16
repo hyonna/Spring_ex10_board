@@ -23,8 +23,11 @@
  		update cart set amount=#{amount} where num=#{num}
  	</update>
  	
- 	<delete id="setDelete" parameterType="List">
- 		delete cart where num=#{num}
+ 	<delete id="setDelete" parameterType="java.util.Map">
+ 		delete cart where num in 
+ 		<foreach collection="array" item="item" open="(" separator="," close=")">
+			#{item} 		
+ 		</foreach>
  	</delete>
  	
  </mapper>

@@ -1,5 +1,6 @@
 package com.iu.s10;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,7 +25,7 @@ public class CartController {
 	
 	@RequestMapping(value = "cartDelete", method = RequestMethod.POST)
 	@ResponseBody
-	public int cartDelete(int[] num) throws Exception {
+	public int cartDelete(Integer[] num) throws Exception {
 		
 		int result = cartService.setDelete(num);
 		

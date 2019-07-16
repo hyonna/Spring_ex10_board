@@ -18,5 +18,6 @@
   		<typeAlias type="com.iu.mall.product.ThumbnailVO" alias="ThumbnailVO"/>
   		<typeAlias type="com.iu.mall.cart.CartVO" alias="CartVO"/>
   		<typeAlias type="com.iu.mall.cart.CartListVO" alias="CartListVO"/>
+  		<typeAlias type="com.iu.board.productqna.ProductQnaVO" alias="ProductQnaVO"/>
   	</typeAliases>
   </configuration>
