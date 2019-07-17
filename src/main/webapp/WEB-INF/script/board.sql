@@ -20,8 +20,14 @@ create table files(
 
 );
 
+
+select * from member;
+
 select fnum from files where num=55;
 
+select * from seq;
+
+select memberfile_seq.nextval from dual
 
 update /*+ bypass_ujvc */
 qna Q, files F join set 

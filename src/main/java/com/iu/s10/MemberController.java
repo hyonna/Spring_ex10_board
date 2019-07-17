@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +20,7 @@ import com.iu.file.MemberFileDTO;
 import com.iu.member.MemberDTO;
 import com.iu.member.MemberService;
 import com.iu.util.PageMaker;
+import com.iu.validator.MemberDTOValidate;
 
 @Controller
 @RequestMapping("/member/")
@@ -25,6 +28,8 @@ public class MemberController {
 	
 	@Inject
 	private MemberService memberService;
+	@Inject
+	private MemberDTOValidate memberDTOValidate;
 	
 	
 	//adminPage
@@ -73,49 +78,70 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "memberLogin", method = RequestMethod.GET)
-	public void getSelect() throws Exception {}
+	public void getSelect(@ModelAttribute MemberDTO memberDTO) throws Exception {}
 	
 	@RequestMapping(value = "memberLogin", method = RequestMethod.POST)
 	public ModelAndView getSelect(MemberDTO memberDTO, MemberFileDTO memberFileDTO, HttpSession session) throws Exception {
 		
-		memberDTO = memberService.getSelect(memberDTO);
-		String message = "Login Fail";
 		
-		if(memberDTO != null) {
-			
-			session.setAttribute("member", memberDTO);
-			message = "Login Success";
-		}
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("common/messageMove");
-		mv.addObject("message", message);
-		mv.addObject("path", "../");
+		
+			
+			memberDTO = memberService.getSelect(memberDTO);
+			String message = "Login Fail";
+			
+			if(memberDTO != null) {
+				
+				session.setAttribute("member", memberDTO);
+				message = "Login Success";
+			}
+			
+			mv.setViewName("common/messageMove");
+			mv.addObject("message", message);
+			mv.addObject("path", "../");
+			
+			
+		
+		
 		
 		return mv;
 		
 	}
 	
 	@RequestMapping(value = "memberJoin", method = RequestMethod.GET)
-	public void setWrite() throws Exception {}
+	public void setWrite(@ModelAttribute MemberDTO memberDTO) throws Exception {}
 	
 	
 	
 	@RequestMapping(value = "memberJoin", method = RequestMethod.POST)
-	public ModelAndView setWrite(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception {
-		
-		int result = memberService.setWrite(memberDTO, photo, session);
-		String message = "Join Fail";
-		
-		if(result > 0) {
-			
-			message = "Join Success";
-		}
+	public ModelAndView setWrite(MemberDTO memberDTO, MultipartFile photo, HttpSession session, BindingResult bindingResult) throws Exception {
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("common/messageMove");
-		mv.addObject("message", message);
-		mv.addObject("path", "../");
+		
+		memberDTOValidate.validate(memberDTO, bindingResult);
+		
+		if(bindingResult.hasErrors()) {
+			
+			mv.setViewName("member/memberJoin");
+			return mv;
+			
+		} else {
+			
+			int result = memberService.setWrite(memberDTO, photo, session);
+			String message = "Join Fail";
+			
+			if(result > 0) {
+				
+				message = "Join Success";
+			}
+			
+			mv.setViewName("common/messageMove");
+			mv.addObject("message", message);
+			mv.addObject("path", "../");
+			
+		}
+		
 		
 		return mv;
 	}

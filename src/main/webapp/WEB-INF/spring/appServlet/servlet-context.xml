@@ -56,12 +56,14 @@
 	
 	<context:component-scan base-package="com.iu.board.notice" />
 	<context:component-scan base-package="com.iu.file" />
+	<context:component-scan base-package="com.iu.util" />
 	<context:component-scan base-package="com.iu.member" />
 	<context:component-scan base-package="com.iu.interceptor" />
 	<context:component-scan base-package="com.iu.transfer" />
 	<context:component-scan base-package="com.iu.mall.product" />
 	<context:component-scan base-package="com.iu.mall.cart" />
 	<context:component-scan base-package="com.iu.board.productqna" />
+	<context:component-scan base-package="com.iu.validator" />
 	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 	<!-- <tx:annotation-driven/> -->
 	

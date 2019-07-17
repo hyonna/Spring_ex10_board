@@ -16,6 +16,11 @@ public class MemberDAO {
 	private SqlSession sqlSession;
 	private static final String NAMESPACE = "MemberMapper.";
 	
+	public MemberDTO getId(MemberDTO memberDTO) throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE+"getId", memberDTO);
+	}
+	
 	public int setDelete(List<String> list) throws Exception {
 		
 		return sqlSession.delete(NAMESPACE+"setDelete", list);

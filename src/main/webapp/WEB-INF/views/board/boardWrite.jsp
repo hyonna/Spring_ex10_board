@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,29 +91,37 @@ height: 300px;
 </head>
 <body>
 	<div class="container">
-	<h1>${board}Write</h1>
-	<br>
-	<form id="frm" action="./${board}Write" method="post" enctype="multipart/form-data">
-		<div class="form-group">
-		  <label for="title">Title:</label>
- 		 <input class="form-control" type="text" id="title" name="title">
-		</div>
-		<div class="form-group">
-		  <label for="writer">Writer:</label>
- 		 <input class="form-control" type="text" id="writer" name="writer" value="${member.id}" readonly>
-		</div>
-		<div class="form-group">
-		  <label for="contents">Contents:</label>
- 		 <textarea class="form-control" rows="5" cols="15" id="contents" name="contents"></textarea>
-		</div>
-		<div class="form-group" id="box">
-			<input type="button" id="add" value="ADD FILE" class="btn btn-primary">
-			<div id="files"></div>
-		</div>
-		<div>
-			<input id="write" type="button" class="btn btn-primary" value="Write">
-		</div>
-	</form>
+		<h1>${board} Write Form</h1>
+		
+		<form:form commandName="boardDTO" id="frm" enctype="multipart/form-data">
+		    
+		    <div class="form-group">
+		      <label for="title">Title:</label>
+		      <form:input placeholder="Enter title" cssClass="form-control" path="title" id="title"/>
+		      <form:errors path="title"></form:errors>
+		    </div>
+		    
+			<div class="form-group">
+		      <label for="writer">Writer:</label>
+		      <form:input cssClass="form-control" path="writer" id="writer"/>
+		      <form:errors path="writer"></form:errors>
+		    </div>
+			
+			<div class="form-group">
+		      <label for="contents">Contents:</label>
+			<form:textarea cssClass="form-control" path="contents" id="contents"/>
+			<form:errors path="contents"></form:errors>
+			</div>
+			
+			 <div>
+		    	<input type="button"  class="btn btn-info" id="add" value="ADD FILE">
+		    	<div id="files"></div>
+		    </div>
+		    
+		    <input type="button" id="write" class="btn btn-default" value="Write">
+		    
+		</form:form>
+
 </div>
 </body>
 </html>

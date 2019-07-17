@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- <bean class="org.springframework.context.support.ResourceBundleMessageSource" id="messageSource">
+		
+		프로퍼티 파일이 하나 일 경우
+		src/main/resources/properties/message
+		<property name="basename" value="/properties/message" />
+		
+		프로퍼티 파일이 여러개 일 경우
+		<property name="basenames">
+			<list>
+				<value></value>
+				<value></value>
+			</list>
+		</property>
+	</bean> -->
+	
+	<bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource" id="messageSource">
+		<!-- <property name="basename" value="classpath:/properties/message" /> -->
+		<property name="basenames">
+			<list>
+				<value>classpath:/properties/message</value>
+				<value>/WEB-INF/message/message2</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8" />
+		
+		<!-- 초 단위로 변경 확인 -->
+		<property name="cacheSeconds" value="10"></property>
+	</bean>
+
+</beans>

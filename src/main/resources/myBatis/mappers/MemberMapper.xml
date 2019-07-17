@@ -8,6 +8,11 @@
  		id, pw, name, email, grade
  	</sql>
  	
+ 	<!-- 중복 확인 -->
+ 	<select id="getId" parameterType="MemberDTO" resultType="MemberDTO">
+ 		 select id from member where id=#{id}
+ 	</select>
+ 	
  	<delete id="setDelete" parameterType="java.util.List">
  		delete member where id in 
  		<foreach collection="list" item="item" open="(" separator="," close=")">

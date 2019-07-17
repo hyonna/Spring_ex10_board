@@ -39,8 +39,6 @@
 		</aop:aspect>
 	</aop:config> -->
 	
-	
-	
 	<!-- 어노테이션으로 AOP쓸 경우 코드 추가 -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 		
