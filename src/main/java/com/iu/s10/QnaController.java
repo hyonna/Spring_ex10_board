@@ -19,7 +19,6 @@ import com.iu.board.BoardDTO;
 import com.iu.board.qna.QnaDTO;
 import com.iu.board.qna.QnaService;
 import com.iu.util.PageMaker;
-import com.iu.validator.QnaDTOValidate;
 
 @Controller
 @RequestMapping("/qna/")
@@ -27,8 +26,6 @@ public class QnaController {
 	
 	@Inject
 	private QnaService qnaService;
-	@Inject
-	private QnaDTOValidate qnaDTOValidate;
 	
 	@ModelAttribute("board")
 	public String board() {
@@ -122,20 +119,16 @@ public class QnaController {
 	}
 	
 	@RequestMapping(value = "qnaWrite", method = RequestMethod.POST)
-	public ModelAndView setWrite(BoardDTO qnaDTO, List<MultipartFile> f1, HttpSession session, BindingResult bindingResult) throws Exception {
+	public ModelAndView setWrite(BoardDTO qnaDTO, BindingResult bindingResult, List<MultipartFile> f1, HttpSession session) throws Exception {
 		
 		ModelAndView mv = new ModelAndView();
 		
-		
-		//BindingResult : 에러 메세지를 바인딩 해서 다시 보내주는 역할
-		//검증
-		qnaDTOValidate.validate(qnaDTO, bindingResult);
-		
-		if(bindingResult.hasErrors()) { //에러가 있을때
+		if(bindingResult.hasErrors()) {
 			
 			mv.setViewName("board/boardWrite");
+			return mv;
 			
-		} else { //에러가 없을때
+		} else {
 			
 			int result = qnaService.setWrite(qnaDTO, f1, session);
 			
@@ -149,7 +142,6 @@ public class QnaController {
 				mv.addObject("path", "./qnaList");
 				mv.setViewName("common/messageMove");
 			}
-			
 		}
 		
 		return mv;
