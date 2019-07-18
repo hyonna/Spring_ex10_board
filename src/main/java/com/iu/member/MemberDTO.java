@@ -7,8 +7,14 @@ import com.iu.file.MemberFileDTO;
 
 public class MemberDTO {
 	
+	
+	//properties 키 이름 : Size.memberDTO.id
+	//Notnull.memberDTO.id
+	
 	@NotNull
+	@Size(min=6, max=15)
 	private String id;
+	
 	@Size(min=6, max=12)
 	private String pw;
 	@Size(min=6, max=12)

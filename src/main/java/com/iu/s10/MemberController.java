@@ -118,28 +118,24 @@ public class MemberController {
 		
 			ModelAndView mv = new ModelAndView();
 			
+			
 			if(bindingResult.hasErrors()) {
 				
-				mv.setViewName("member/memeberJoin");
+				mv.setViewName("member/memberJoin");
+				mv.addObject("memberDTO", memberDTO);
 				return mv;
-				
-			} else {
-				
-				int result = memberService.setWrite(memberDTO, photo, session);
-				String message = "Join Fail";
-				
-				if(result > 0) {
-					
-					message = "Join Success";
-				}
-				
-				mv.setViewName("common/messageMove");
-				mv.addObject("message", message);
-				mv.addObject("path", "../");
 			}
-		
 			
-		
+			int result = memberService.setWrite(memberDTO, photo, session);
+			String message="Join Fail";
+			if(result>0) {
+				message="Join Success";
+			}
+			
+			mv.setViewName("common/messageMove");
+			mv.addObject("message", message);
+			mv.addObject("path", "../");
+			
 		
 		return mv;
 	}
