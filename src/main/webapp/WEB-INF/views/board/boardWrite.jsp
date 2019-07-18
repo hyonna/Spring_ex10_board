@@ -93,7 +93,7 @@ height: 300px;
 	<div class="container">
 		<h1>${board} Write Form</h1>
 		
-		<form:form commandName="boardDTO" id="frm" enctype="multipart/form-data">
+		<form:form action="./qnaWrite" commandName="boardDTO" id="frm" enctype="multipart/form-data">
 		    
 		    <div class="form-group">
 		      <label for="title">Title:</label>

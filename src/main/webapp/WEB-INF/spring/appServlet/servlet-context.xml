@@ -31,23 +31,36 @@
 		<beans:property name="order" value="0" />
 	</beans:bean>
 	
+		<!-- properties 파일을 읽어주는 코드 -->
+	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyPlaceholderConfigurer">
+		<beans:property name="locations" value="classpath:properties/*.properties"></beans:property>
+	</beans:bean>
+	
 	<beans:bean class="com.iu.interceptor.QnaInterceptor" id="qnaInterceptor"></beans:bean>
-	<beans:bean class="com.iu.interceptor.QnaUpdateInterceptor" id="qnaUpdateInterceptor"></beans:bean>
+	
+	<beans:bean class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<beans:property name="defaultLocale" value="KR"></beans:property>
+	</beans:bean>
+	
+	<!-- <beans:bean class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<beans:property name="defaultLocale" value="KR"></beans:property>
+	</beans:bean> -->
+	
 	<interceptors>
+			<beans:bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" id="localeChangeInterceptor">
+				<beans:property name="paramName" value="lang" />
+			</beans:bean>
 		<interceptor>
 			<mapping path="/qna/*"/>
 			<beans:ref bean="qnaInterceptor"/>
 		</interceptor>
 		<interceptor>
 			<mapping path="/qna/qnaUpdate"/>
-			<beans:ref bean="qnaUpdateInterceptor"/>
+			<beans:bean class="com.iu.interceptor.QnaUpdateInterceptor" />
 		</interceptor>
 	</interceptors>
 	
-	<!-- properties 파일을 읽어주는 코드 -->
-	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyPlaceholderConfigurer">
-		<beans:property name="locations" value="classpath:properties/*.properties"></beans:property>
-	</beans:bean>
+
 		
 		
 	
